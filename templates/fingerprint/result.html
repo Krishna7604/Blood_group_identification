@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Fingerprint Analysis Result</h2>
+        <!-- Add result display logic here -->
+        <div class="buttons">
+            <a href="{{ url_for('fingerprint.upload') }}" class="btn">Upload Another</a>
+            <a href="{{ url_for('auth.logout') }}" class="btn">Logout</a>
+        </div>
+    </div>
+</body>
+</html> 
