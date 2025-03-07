@@ -1,31 +1,95 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h2>Login</h2>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <form method="POST">
-            <div class="form-group">
-                <label>Username:</label>
-                <input type="text" name="username" required>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - BloodPrint ID</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="auth-page">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <a href="{{ url_for('fingerprint.home') }}" class="logo">
+            <i class="fas fa-fingerprint"></i>
+            <span>BloodPrint ID</span>
+          </a>
+          <h2>Welcome Back!</h2>
+          <p>Please login to your account</p>
+        </div>
+        <form method="POST" class="auth-form">
+          <div class="form-group">
+            <div class="input-icon">
+              <i class="fas fa-user"></i>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                required
+              />
             </div>
-            <div class="form-group">
-                <label>Password:</label>
-                <input type="password" name="password" required>
+          </div>
+          <div class="form-group">
+            <div class="input-icon">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
             </div>
-            <button type="submit" class="btn">Login</button>
+          </div>
+          <button type="submit" class="auth-button">
+            <span>Login</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
         </form>
-        <p>Don't have an account? <a href="{{ url_for('auth.signup') }}">Sign up here</a></p>
+        <div class="auth-footer">
+          <p>
+            Don't have an account?
+            <a href="{{ url_for('auth.signup') }}">Sign up</a>
+          </p>
+        </div>
+      </div>
+      <div class="auth-decoration">
+        <div class="auth-image">
+          <img
+            src="{{ url_for('static', filename='images/fingerprint-blood.png') }}"
+            alt="Fingerprint Blood Analysis"
+          />
+          <div class="image-overlay"></div>
+        </div>
+        <div class="auth-decoration-content">
+          <h3>Advanced Blood Group Analysis</h3>
+          <p>
+            Using cutting-edge fingerprint analysis to revolutionize blood type
+            identification
+          </p>
+        </div>
+        <div class="circles">
+          <div class="circle circle-1"></div>
+          <div class="circle circle-2"></div>
+          <div class="circle circle-3"></div>
+        </div>
+      </div>
     </div>
-</body>
-</html> 
+    <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
+    {% if error_message %}
+    <script>
+      popup.show("{{ error_message }}", "error");
+    </script>
+    {% endif %}
+  </body>
+</html>

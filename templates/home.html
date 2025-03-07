@@ -1,20 +1,118 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Blood Group Identification2</title>
+    <title>Blood Group Identification System</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="container">
-      <h1>Welcome to Blood Group Identification System</h1>
-      <p>This system uses fingerprint analysis to identify blood groups.</p>
-      <div class="buttons">
-        <a href="{{ url_for('auth.login') }}" class="btn">Login</a>
-        <a href="{{ url_for('auth.signup') }}" class="btn">Sign Up</a>
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-fingerprint"></i>
+        <span>BloodPrint ID</span>
+      </div>
+      <div class="nav-buttons">
+        <a href="{{ url_for('auth.login') }}" class="nav-btn login">Login</a>
+        <a href="{{ url_for('auth.signup') }}" class="nav-btn signup"
+          >Sign Up</a
+        >
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Revolutionary Blood Group Identification</h1>
+        <p class="subtitle">Using Advanced Fingerprint Analysis Technology</p>
       </div>
     </div>
+
+    <div class="container">
+      <section class="info-section">
+        <h2>How It Works</h2>
+        <div class="process-grid">
+          <div class="process-card">
+            <i class="fas fa-upload"></i>
+            <h3>Upload</h3>
+            <p>Upload your fingerprint image through our secure system</p>
+          </div>
+          <div class="process-card">
+            <i class="fas fa-microscope"></i>
+            <h3>Analysis</h3>
+            <p>Our AI model analyzes the unique patterns in your fingerprint</p>
+          </div>
+          <div class="process-card">
+            <i class="fas fa-check-circle"></i>
+            <h3>Results</h3>
+            <p>Get your blood group prediction with confidence score</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="features-section">
+        <h2>Why Choose Us?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Secure</h3>
+            <p>Your data is encrypted and protected</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-bolt"></i>
+            <h3>Fast</h3>
+            <p>Get results in seconds</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Accurate</h3>
+            <p>High accuracy prediction model</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-user-shield"></i>
+            <h3>Private</h3>
+            <p>Your information stays confidential</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-details">
+        <h2>About the Technology</h2>
+        <div class="info-content">
+          <p>
+            Our system uses advanced machine learning algorithms to analyze the
+            correlation between fingerprint patterns and blood groups. Through
+            extensive research and data analysis, we've developed a reliable
+            method to predict blood groups using just a fingerprint image.
+          </p>
+          <div class="tech-points">
+            <div class="tech-point">
+              <i class="fas fa-brain"></i>
+              <span>AI-Powered Analysis</span>
+            </div>
+            <div class="tech-point">
+              <i class="fas fa-database"></i>
+              <span>Large Training Dataset</span>
+            </div>
+            <div class="tech-point">
+              <i class="fas fa-chart-bar"></i>
+              <span>High Accuracy Rate</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 BloodPrint ID. All rights reserved.</p>
+    </footer>
   </body>
 </html>

@@ -1,27 +1,131 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Upload Fingerprint</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h2>Upload Fingerprint Image</h2>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <form method="POST" enctype="multipart/form-data">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-fingerprint"></i>
+        <span>BloodPrint ID</span>
+      </div>
+      <div class="nav-buttons">
+        <a href="{{ url_for('auth.logout') }}" class="nav-btn login">Logout</a>
+      </div>
+    </nav>
+
+    <div class="upload-container">
+      <h2>Blood Group Analysis</h2>
+
+      <form method="POST" enctype="multipart/form-data" class="upload-form">
+        <div class="form-sections">
+          <div class="personal-info">
+            <h3>Personal Information</h3>
             <div class="form-group">
-                <label>Select Fingerprint Image:</label>
-                <input type="file" name="file" accept="image/*" required>
+              <label>First Name:</label>
+              <input type="text" name="first_name" value="{{ current_user.first_name or '' }}" required />
             </div>
-            <button type="submit" class="btn">Upload and Analyze</button>
-        </form>
-        <a href="{{ url_for('auth.logout') }}" class="btn">Logout</a>
+            <div class="form-group">
+              <label>Last Name:</label>
+              <input type="text" name="last_name" value="{{ current_user.last_name or '' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Age:</label>
+              <input type="number" name="age" value="{{ current_user.age or '' }}" required min="1" max="150" />
+            </div>
+            <div class="form-group">
+              <label>Gender:</label>
+              <select name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male" {% if current_user.gender == 'male' %}selected{% endif %}>Male</option>
+                <option value="female" {% if current_user.gender == 'female' %}selected{% endif %}>Female</option>
+                <option value="other" {% if current_user.gender == 'other' %}selected{% endif %}>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Phone:</label>
+              <input type="tel" name="phone" value="{{ current_user.phone or '' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Address:</label>
+              <textarea name="address" rows="3">{{ current_user.address or '' }}</textarea>
+            </div>
+          </div>
+
+          <div class="fingerprint-upload">
+            <h3>Fingerprint Image</h3>
+            <div class="upload-area" id="uploadArea">
+              <input
+                type="file"
+                name="file"
+                id="fileInput"
+                accept="image/*"
+                required
+              />
+              <div class="upload-placeholder">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag & Drop or Click to Upload</p>
+              </div>
+              <div class="image-preview" id="imagePreview"></div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-microscope"></i>
+          Analyze Fingerprint
+        </button>
+      </form>
     </div>
-</body>
-</html> 
+
+    <script>
+      // Image preview functionality
+      const fileInput = document.getElementById("fileInput");
+      const imagePreview = document.getElementById("imagePreview");
+      const uploadArea = document.getElementById("uploadArea");
+
+      fileInput.addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            imagePreview.style.backgroundImage = `url(${e.target.result})`;
+            imagePreview.style.display = "block";
+            uploadArea.classList.add("has-image");
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Drag and drop functionality
+      uploadArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        uploadArea.classList.add("dragover");
+      });
+
+      uploadArea.addEventListener("dragleave", () => {
+        uploadArea.classList.remove("dragover");
+      });
+
+      uploadArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove("dragover");
+        fileInput.files = e.dataTransfer.files;
+        const event = new Event("change");
+        fileInput.dispatchEvent(event);
+      });
+    </script>
+  </body>
+</html>

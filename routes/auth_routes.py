@@ -11,7 +11,8 @@ def login():
         if user and user.check_password(request.form.get('password')):
             login_user(user)
             return redirect(url_for('fingerprint.upload'))
-        flash('Invalid username or password')
+        return render_template('auth/login.html', 
+                             error_message='Invalid username or password')
     return render_template('auth/login.html')
 
 @auth_bp.route('/signup', methods=['GET', 'POST'])
@@ -22,20 +23,20 @@ def signup():
         password = request.form.get('password')
         
         if User.query.filter_by(username=username).first():
-            flash('Username already exists')
-            return redirect(url_for('auth.signup'))
+            return render_template('auth/signup.html', 
+                                 error_message='Username already exists')
             
         if User.query.filter_by(email=email).first():
-            flash('Email already registered')
-            return redirect(url_for('auth.signup'))
+            return render_template('auth/signup.html', 
+                                 error_message='Email already registered')
             
         user = User(username=username, email=email)
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
         
-        flash('Registration successful!')
-        return redirect(url_for('auth.login'))
+        return render_template('auth/login.html', 
+                             success_message='Registration successful! Please login.')
     return render_template('auth/signup.html')
 
 @auth_bp.route('/logout')

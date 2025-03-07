@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %} - BloodPrint ID</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+
+    <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
+    {% block extra_js %}{% endblock %} {% if error_message %}
+    <script>
+      popup.show("{{ error_message }}", "error");
+    </script>
+    {% endif %} {% if success_message %}
+    <script>
+      popup.show("{{ success_message }}", "success");
+    </script>
+    {% endif %}
+  </body>
+</html>
