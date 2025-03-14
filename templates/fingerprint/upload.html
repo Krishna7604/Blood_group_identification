@@ -14,6 +14,49 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"
+    />
+    <style>
+      .hide{
+        display: none;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar">
@@ -73,10 +116,12 @@
                 id="fileInput"
                 accept="image/*"
                 required
+                
+                
               />
-              <div class="upload-placeholder">
+              <div class="upload-placeholder" id="uploadButton">
                 <i class="fas fa-cloud-upload-alt"></i>
-                <p>Drag & Drop or Click to Upload</p>
+                <p>Click to ddUpload</p>
               </div>
               <div class="image-preview" id="imagePreview"></div>
             </div>
@@ -90,26 +135,97 @@
       </form>
     </div>
 
+    <!-- Modal for image cropping -->
+    <div id="imageModal" class="modal" style="position: absolute;">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Select Image Area</h2>
+        <div id="cropContainer">
+          <img id="cropImage" src="" alt="Crop Image">
+        </div>
+        <button id="cropButton">Crop and Upload</button>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
+    {% if error_message %}
     <script>
-      // Image preview functionality
+      popup.show("{{ error_message }}", "error");
+    </script>
+    {% endif %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script>
+      // Image preview and modal functionality
       const fileInput = document.getElementById("fileInput");
       const imagePreview = document.getElementById("imagePreview");
-      const uploadArea = document.getElementById("uploadArea");
+      const uploadButton = document.getElementById("uploadButton");
+      const imageModal = document.getElementById("imageModal");
+      const cropImage = document.getElementById("cropImage");
+      const cropButton = document.getElementById("cropButton");
+      const closeModal = document.getElementsByClassName("close")[0];
+      let cropper;
+
+      uploadButton.addEventListener("click", () => {
+        console.log("button click")
+        fileInput.click();
+      });
 
       fileInput.addEventListener("change", function (e) {
         const file = e.target.files[0];
         if (file) {
           const reader = new FileReader();
           reader.onload = function (e) {
-            imagePreview.style.backgroundImage = `url(${e.target.result})`;
-            imagePreview.style.display = "block";
-            uploadArea.classList.add("has-image");
+            cropImage.src = e.target.result;
+            imageModal.style.display = "block";
+            if (cropper) {
+              cropper.destroy();
+            }
+            cropper = new Cropper(cropImage, {
+              aspectRatio: 206 / 192,
+              viewMode: 1,
+              autoCropArea: 1,
+              movable: true,
+              zoomable: true,
+              rotatable: true,
+              scalable: true,
+            });
           };
           reader.readAsDataURL(file);
         }
       });
 
+      closeModal.onclick = function() {
+        imageModal.style.display = "none";
+      };
+
+      window.onclick = function(event) {
+        if (event.target == imageModal) {
+          imageModal.style.display = "none";
+        }
+      };
+
+      cropButton.addEventListener("click", () => {
+        const canvas = cropper.getCroppedCanvas({
+          width: 206,
+          height: 192,
+        });
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          imagePreview.style.backgroundImage = `url(${url})`;
+          imagePreview.style.display = "block";
+          imageModal.style.display = "none";
+          // Create a new File object and set it to the file input
+          const croppedFile = new File([blob], fileInput.files[0].name, {
+            type: fileInput.files[0].type,
+            lastModified: Date.now(),
+          });
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(croppedFile);
+          fileInput.files = dataTransfer.files;
+        });
+      });
+
       // Drag and drop functionality
+      const uploadArea = document.getElementById("uploadArea");
       uploadArea.addEventListener("dragover", (e) => {
         e.preventDefault();
         uploadArea.classList.add("dragover");

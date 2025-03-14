@@ -1,0 +1,161 @@
+{% extends 'base.html' %} {% block title %}About Project{% endblock %} {% block
+extra_css %} {% endblock %} {% block content %}
+<nav class="navbar">
+  <div class="logo">
+    <a href="{{ url_for('fingerprint.home') }}" class="logo-link">
+      <i class="fas fa-fingerprint"></i>
+      <span>BloodPrint ID</span>
+    </a>
+  </div>
+  <div class="nav-buttons">
+    <a href="{{ url_for('fingerprint.about') }}" class="nav-btn">Team</a>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('auth.logout') }}" class="nav-btn login">Logout</a>
+    {% else %}
+    <a href="{{ url_for('auth.login') }}" class="nav-btn login">Login</a>
+    {% endif %}
+  </div>
+</nav>
+
+<div class="about-project-container">
+  <section class="project-hero">
+    <h1>Blood Group Identification System</h1>
+    <p class="project-tagline">
+      Revolutionizing blood type detection through fingerprint analysis
+    </p>
+  </section>
+
+  <section class="project-section">
+    <h2>Project Overview</h2>
+    <div class="content-card">
+      <p>
+        Our innovative system leverages deep learning and computer vision
+        techniques to establish a correlation between fingerprint patterns and
+        blood groups. This non-invasive approach offers a quick and efficient
+        alternative to traditional blood typing methods.
+      </p>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <h2>Technology Stack</h2>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <i class="fab fa-python"></i>
+        <h3>Backend</h3>
+        <ul>
+          <li>Python Flask</li>
+          <li>SQLAlchemy ORM</li>
+          <li>JWT Authentication</li>
+        </ul>
+      </div>
+      <div class="tech-card">
+        <i class="fas fa-brain"></i>
+        <h3>AI/ML</h3>
+        <ul>
+          <li>TensorFlow</li>
+          <li>OpenCV</li>
+          <li>NumPy</li>
+        </ul>
+      </div>
+      <div class="tech-card">
+        <i class="fas fa-laptop-code"></i>
+        <h3>Frontend</h3>
+        <ul>
+          <li>HTML5/CSS3</li>
+          <li>JavaScript</li>
+          <li>Jinja2 Templates</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <h2>Key Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <i class="fas fa-fingerprint"></i>
+        <h3>Pattern Analysis</h3>
+        <p>
+          Advanced image processing for accurate fingerprint pattern recognition
+        </p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Accuracy</h3>
+        <p>90% accuracy in blood group prediction through ML model</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Security</h3>
+        <p>Encrypted data storage and secure authentication system</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Accessibility</h3>
+        <p>Responsive design for seamless mobile usage</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <h2>System Architecture</h2>
+    <div class="architecture-container">
+      <img
+        src="{{ url_for('static', filename='images/architecture.gif') }}"
+        alt="System Architecture"
+      />
+      <div class="architecture-description">
+        <h3>Three-Tier Architecture</h3>
+        <ul>
+          <li>
+            <strong>Presentation Layer:</strong> User interface and data
+            visualization
+          </li>
+          <li>
+            <strong>Application Layer:</strong> Business logic and ML model
+            integration
+          </li>
+          <li>
+            <strong>Data Layer:</strong> Secure storage and database management
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <h2>Research Methodology</h2>
+    <div class="methodology-timeline">
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3>Data Collection</h3>
+          <p>Gathered fingerprint samples and corresponding blood group data</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3>Preprocessing</h3>
+          <p>Image enhancement and feature extraction</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3>Model Development</h3>
+          <p>CNN architecture design and training</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3>Validation</h3>
+          <p>Testing and accuracy improvement</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p>&copy; 2024 BloodPrint ID. All rights reserved.</p>
+</footer>
+{% endblock %}

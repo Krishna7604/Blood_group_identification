@@ -1,0 +1,113 @@
+{% extends "base.html" %} {% block title %}About Us{% endblock %} {% block
+content %}
+<nav class="navbar">
+  <div class="logo">
+    <a href="{{ url_for('fingerprint.home') }}" class="logo-link">
+      <i class="fas fa-fingerprint"></i>
+      <span>BloodPrint ID</span>
+    </a>
+  </div>
+  <div class="nav-buttons">
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('auth.logout') }}" class="nav-btn login">Logout</a>
+    {% else %}
+    <a href="{{ url_for('auth.login') }}" class="nav-btn login">Login</a>
+    <a href="{{ url_for('auth.signup') }}" class="nav-btn signup">Sign Up</a>
+    {% endif %}
+  </div>
+</nav>
+
+<div class="container">
+  <section class="about-section">
+    <h1>Our Team</h1>
+    <p class="section-description">
+      Meet the innovative minds behind BloodPrint ID
+    </p>
+    <div class="team-container">
+      <!-- Team Member 1 (Team Lead) -->
+      <div class="team-member featured">
+        <div class="member-badge">Team Lead</div>
+        <div class="member-image">
+          <img
+            src="{{ url_for('static', filename='images/team/team-lead.jpg') }}"
+            alt="KrishnaVardhan Reddy"
+          />
+        </div>
+        <div class="member-details">
+          <h2>KrishnaVardhan Reddy</h2>
+          <h3>Project Lead & ML Engineer</h3>
+          <p>
+            Lead developer and architect of the BloodPrint ID system.
+            Specialized in machine learning and computer vision, with expertise
+            in fingerprint analysis algorithms.
+          </p>
+          <div class="social-links">
+            <a href="https://github.com/krishnavardhan" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/krishnavardhan" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Member 2 -->
+      <div class="team-member">
+        <div class="member-image">
+          <img
+            src="{{ url_for('static', filename='images/team/member2.jpg') }}"
+            alt="Alex Johnson"
+          />
+        </div>
+        <div class="member-details">
+          <h2>Nagendra Babu</h2>
+          <h3>Frontend Developer</h3>
+          <p>
+            Creates intuitive user interfaces and ensures smooth user experience
+            across the platform.
+          </p>
+          <div class="social-links">
+            <a href="https://github.com/alexj" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/alexj" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Member 3 -->
+      <div class="team-member">
+        <div class="member-image">
+          <img
+            src="{{ url_for('static', filename='images/team/member3.jpg') }}"
+            alt="Sarah Chen"
+          />
+        </div>
+        <div class="member-details">
+          <h2>Sravya</h2>
+          <h3>Backend Developer</h3>
+          <p>
+            Handles server-side logic, database management, and API integration
+            for seamless data processing.
+          </p>
+          <div class="social-links">
+            <a href="https://github.com/sarahc" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/sarahc" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p>&copy; 2024 BloodPrint ID. All rights reserved.</p>
+</footer>
+{% endblock %}

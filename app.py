@@ -9,4 +9,4 @@ if __name__ == '__main__':
         # Load the model at startup
         if not load_blood_group_model():
             print("Warning: Failed to load the blood group prediction model!")
-    app.run(debug=True) 
+    app.run(debug=True,port=5001) 

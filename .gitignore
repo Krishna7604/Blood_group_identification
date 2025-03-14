@@ -41,3 +41,6 @@ instance/
 uploads/
 *.log
 .DS_Store
+ngrok.exe
+
+ecoded_imgg.png

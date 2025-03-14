@@ -78,9 +78,25 @@
         <div class="analysis-result">
           <h3><i class="fas fa-flask"></i> Analysis Result</h3>
           <div class="result-content">
-            <div class="blood-group">
-              <span class="label">Blood Group</span>
+            {% for blood_group, confidence in predictions %}
+            <div class="blood-group {% if loop.index == 1 %}primary{% endif %}">
+              <span class="label"
+                >Blood Group {% if loop.index == 1 %}(Most Likely){% endif
+                %}</span
+              >
               <span class="value">{{ blood_group }}</span>
+              <div class="confidence">
+                <div class="progress-bar">
+                  <div
+                    class="progress"
+                    style="width: {{ confidence * 100 }}%"
+                  ></div>
+                </div>
+                <span class="percentage"
+                  >{{ "%.2f"|format(confidence * 100) }}%</span
+                >
+              </div>
+              {% if loop.index == 1 %}
               <div class="blood-info">
                 <p>
                   Can donate to: {{
@@ -92,19 +108,9 @@
                   }}
                 </p>
               </div>
+              {% endif %}
             </div>
-            <div class="confidence">
-              <span class="label">Analysis Confidence</span>
-              <div class="progress-bar">
-                <div
-                  class="progress"
-                  style="width: {{ confidence * 100 }}%"
-                ></div>
-              </div>
-              <span class="percentage"
-                >{{ "%.2f"|format(confidence * 100) }}%</span
-              >
-            </div>
+            {% endfor %}
           </div>
         </div>
 

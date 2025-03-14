@@ -35,12 +35,11 @@ def signup():
         db.session.add(user)
         db.session.commit()
         
-        return render_template('auth/login.html', 
-                             success_message='Registration successful! Please login.')
+        return redirect(url_for('auth.login'))
     return render_template('auth/signup.html')
 
 @auth_bp.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('fingerprint.home')) 
+    return redirect(url_for('fingerprint.home'))

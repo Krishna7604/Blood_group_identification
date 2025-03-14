@@ -22,6 +22,10 @@
         <span>BloodPrint ID</span>
       </div>
       <div class="nav-buttons">
+        <a href="{{ url_for('fingerprint.about_project') }}" class="nav-btn"
+          >about</a
+        >
+        <a href="{{ url_for('fingerprint.about') }}" class="nav-btn">Team</a>
         <a href="{{ url_for('auth.login') }}" class="nav-btn login">Login</a>
         <a href="{{ url_for('auth.signup') }}" class="nav-btn signup"
           >Sign Up</a
