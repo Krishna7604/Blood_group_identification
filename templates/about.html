@@ -1,5 +1,6 @@
-{% extends "base.html" %} {% block title %}About Us{% endblock %} {% block
-content %}
+{% extends "base.html" %} 
+{% block title %}About Us{% endblock %} 
+{% block content %}
 <nav class="navbar">
   <div class="logo">
     <a href="{{ url_for('fingerprint.home') }}" class="logo-link">
@@ -8,11 +9,17 @@ content %}
     </a>
   </div>
   <div class="nav-buttons">
+    <!-- Home Button -->
+    <a href="{{ url_for('fingerprint.home') }}" class="nav-btn home">Home</a>
+    
+    <!-- Conditional Buttons -->
     {% if current_user.is_authenticated %}
-    <a href="{{ url_for('auth.logout') }}" class="nav-btn login">Logout</a>
+      <!-- Logout Button (Visible only when user is logged in) -->
+      <a href="{{ url_for('auth.logout') }}" class="nav-btn login">Logout</a>
     {% else %}
-    <a href="{{ url_for('auth.login') }}" class="nav-btn login">Login</a>
-    <a href="{{ url_for('auth.signup') }}" class="nav-btn signup">Sign Up</a>
+      <!-- Login and Sign Up Buttons (Visible only when user is not logged in) -->
+      <a href="{{ url_for('auth.login') }}" class="nav-btn login">Login</a>
+      <a href="{{ url_for('auth.signup') }}" class="nav-btn signup">Sign Up</a>
     {% endif %}
   </div>
 </nav>
