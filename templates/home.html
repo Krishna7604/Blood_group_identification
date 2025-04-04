@@ -22,14 +22,24 @@
         <span>BloodPrint ID</span>
       </div>
       <div class="nav-buttons">
-        <a href="{{ url_for('fingerprint.about_project') }}" class="nav-btn"
-          >About</a
+        <!-- Upload Button -->
+        <a
+          href="{% if current_user.is_authenticated %}{{ url_for('fingerprint.upload') }}{% else %}#{% endif %}"
+          class="nav-btn upload"
+          onclick="return handleUploadClick(event)"
         >
+          Upload
+        </a>
+        <a href="{{ url_for('fingerprint.about_project') }}" class="nav-btn">About</a>
         <a href="{{ url_for('fingerprint.about') }}" class="nav-btn">Team</a>
-        <a href="{{ url_for('auth.login') }}" class="nav-btn login">Login</a>
-        <a href="{{ url_for('auth.signup') }}" class="nav-btn signup"
-          >Sign Up</a
-        >
+        
+        <!-- Conditional Buttons -->
+        {% if not current_user.is_authenticated %}
+          <a href="{{ url_for('auth.login', next=request.path) }}" class="nav-btn login">Login</a>
+          <a href="{{ url_for('auth.signup') }}" class="nav-btn signup">Sign Up</a>
+        {% else %}
+          <a href="{{ url_for('auth.logout') }}" class="nav-btn logout">Logout</a>
+        {% endif %}
       </div>
     </nav>
 
@@ -118,5 +128,16 @@
     <footer>
       <p>&copy; 2024 BloodPrint ID. All rights reserved.</p>
     </footer>
+
+    <script>
+      function handleUploadClick(event) {
+        // Check if the user is logged in
+        const isAuthenticated = "{{ 'true' if current_user.is_authenticated else 'false' }}" === "true";
+        if (!isAuthenticated) {
+          event.preventDefault(); // Prevent navigation
+          alert("Please log in first!"); // Show warning
+        }
+      }
+    </script>
   </body>
 </html>

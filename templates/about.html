@@ -10,16 +10,19 @@
   </div>
   <div class="nav-buttons">
     <!-- Home Button -->
-    <a href="{{ url_for('fingerprint.home') }}" class="nav-btn home">Home</a>
+    <a href="{{ url_for('fingerprint.home') }}" class="nav-btn">Home</a>
+    
+    <!-- About Button -->
+    <a href="{{ url_for('fingerprint.about_project') }}" class="nav-btn">About</a>
+    
+   
     
     <!-- Conditional Buttons -->
-    {% if current_user.is_authenticated %}
-      <!-- Logout Button (Visible only when user is logged in) -->
-      <a href="{{ url_for('auth.logout') }}" class="nav-btn login">Logout</a>
-    {% else %}
-      <!-- Login and Sign Up Buttons (Visible only when user is not logged in) -->
-      <a href="{{ url_for('auth.login') }}" class="nav-btn login">Login</a>
+    {% if not current_user.is_authenticated %}
+    <a href="{{ url_for('auth.login', next=request.path) }}" class="nav-btn login">Login</a>
       <a href="{{ url_for('auth.signup') }}" class="nav-btn signup">Sign Up</a>
+    {% else %}
+      <a href="{{ url_for('auth.logout') }}" class="nav-btn logout-btn">Logout</a>
     {% endif %}
   </div>
 </nav>

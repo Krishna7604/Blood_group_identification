@@ -6,14 +6,17 @@ auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    next_page = request.args.get('next')  # Retrieve the 'next' parameter from the query string
     if request.method == 'POST':
         user = User.query.filter_by(username=request.form.get('username')).first()
         if user and user.check_password(request.form.get('password')):
             login_user(user)
-            return redirect(url_for('fingerprint.upload'))
+            # Redirect to the next page if it exists, otherwise redirect to the homepage
+            return redirect(next_page or url_for('fingerprint.home'))
         return render_template('auth/login.html', 
-                             error_message='Invalid username or password')
-    return render_template('auth/login.html')
+                               error_message='Invalid username or password',
+                               next=next_page)
+    return render_template('auth/login.html', next=next_page)
 
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
