@@ -1,11 +1,11 @@
 # Blood Group Identification System
 
 ## Overview
-The **Blood Group Identification System** is an innovative application that uses advanced machine learning and fingerprint analysis to predict a user's blood group. This non-invasive approach provides a quick and efficient alternative to traditional blood typing methods.
+The **Blood Group Identification System** is an innovative application that uses deep learning and fingerprint analysis to predict a user's blood group. This non-invasive approach provides a quick and efficient alternative to traditional blood typing methods.
 
 ## Features
 - **Fingerprint Upload**: Users can upload their fingerprint images for analysis.
-- **AI-Powered Analysis**: The system uses a trained machine learning model to analyze fingerprint patterns and predict blood groups.
+- **AI-Powered Analysis**: The system uses a trained deep learning model to analyze fingerprint patterns and predict blood groups.
 - **User Authentication**: Secure login and signup functionality for users.
 - **Responsive Design**: The application is accessible on both desktop and mobile devices.
 - **Team and Project Information**: Learn more about the project and the team behind it.
