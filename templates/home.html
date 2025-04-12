@@ -25,7 +25,7 @@
         <!-- Upload Button -->
         <a
           href="{% if current_user.is_authenticated %}{{ url_for('fingerprint.upload') }}{% else %}#{% endif %}"
-          class="nav-btn upload"
+          class="nav-btn upload-btn"
           onclick="return handleUploadClick(event)"
         >
           Upload
@@ -38,7 +38,7 @@
           <a href="{{ url_for('auth.login', next=request.path) }}" class="nav-btn login">Login</a>
           <a href="{{ url_for('auth.signup') }}" class="nav-btn signup">Sign Up</a>
         {% else %}
-          <a href="{{ url_for('auth.logout') }}" class="nav-btn logout">Logout</a>
+          <a href="{{ url_for('auth.logout') }}" class="nav-btn logout-btn">Logout</a>
         {% endif %}
       </div>
     </nav>
