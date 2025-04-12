@@ -14,7 +14,7 @@ class User(UserMixin, db.Model):
     gender = db.Column(db.String(10))
     phone = db.Column(db.String(15))
     address = db.Column(db.String(200))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now)
     is_active = db.Column(db.Boolean, default=True)
 
     # Relationship with predictions
